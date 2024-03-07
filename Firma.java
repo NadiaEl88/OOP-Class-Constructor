@@ -12,19 +12,49 @@ public class Firma {
         this.plaetze = plaetze;
     }
 
-    public void testPlatz(int plaetze) {
+
+    public void fuegeRaumHinzu(int plaetze) {
         if (plaetze <= 0) {
-            this.raum = "Nicht verfügbar";
+            System.out.println("keine gültige Anzahl von Plätzen. Raum kann nicht hinzugefügt werden.");
         } else if (plaetze <= 50) {
             this.raum = "Dreamroom";
         } else if (plaetze <= 150) {
             this.raum = "Prestigeroom";
         } else if (plaetze <= 250) {
             this.raum = "Bigroom";
+        } else {
+            System.out.println("Die Firma hat keinen passenden Raum für " + plaetze + " Personen.");
         }
-        System.out.println("Die Firma " + firma + " in der " +adresse + " bietet für " + plaetze + " Personen den: " + this.raum);
+    }
+
+    public String sucheRaum(int plaetze) {
+        if (plaetze <= 0) {
+            return "Ungültige Anzahl von Plätzen.";
+        } else if (plaetze <= 50) {
+            return "Dreamroom";
+        } else if (plaetze <= 150) {
+            return "Prestigeroom";
+        } else if (plaetze <= 250) {
+            return "Bigroom";
+        } else {
+            return "Kein passender Raum gefunden.";
+        }
+    }
+    
+    public int anzahlFrei() {
+        int freiePlaetze = 0;
+        if (this.raum.equals("Dreamroom")) {
+            freiePlaetze = 50 - this.plaetze;
+        } else if (this.raum.equals("Prestigeroom")) {
+            freiePlaetze = 150 - this.plaetze;
+        } else if (this.raum.equals("Bigroom")) {
+            freiePlaetze = 250 - this.plaetze;
+        }
+        return freiePlaetze;
     }
 }
+
+
 
 
 
