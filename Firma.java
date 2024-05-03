@@ -1,59 +1,41 @@
+import java.util.ArrayList;
+
 public class Firma {
-    public static int mindestraumanzahl = 3;
-    private String firma;
+    private String name;
     private String adresse;
-    private String raum;
-    private int plaetze;
+    private ArrayList<Raum> raumListe;
 
-    public Firma(String firma, String adresse, String raum, int plaetze) {
-        this.firma = firma;
+    public Firma(String name, String adresse) {
+        this.name = name;
         this.adresse = adresse;
-        this.raum = raum;
-        this.plaetze = plaetze;
+        this.raumListe = new ArrayList<>();
     }
-
 
     public void fuegeRaumHinzu(int plaetze) {
-        if (plaetze <= 0) {
-            System.out.println("keine gültige Anzahl von Plätzen. Raum kann nicht hinzugefügt werden.");
-        } else if (plaetze <= 50) {
-            this.raum = "Dreamroom";
-        } else if (plaetze <= 150) {
-            this.raum = "Prestigeroom";
-        } else if (plaetze <= 250) {
-            this.raum = "Bigroom";
-        } else {
-            System.out.println("Die Firma hat keinen passenden Raum für " + plaetze + " Personen.");
-        }
+        Raum neuerRaum = new Raum(plaetze);
+        raumListe.add(neuerRaum);
     }
 
-    public String sucheRaum(int plaetze) {
-        if (plaetze <= 0) {
-            return "Ungültige Anzahl von Plätzen.";
-        } else if (plaetze <= 50) {
-            return "Dreamroom";
-        } else if (plaetze <= 150) {
-            return "Prestigeroom";
-        } else if (plaetze <= 250) {
-            return "Bigroom";
-        } else {
-            return "Kein passender Raum gefunden.";
+    public int sucheRaum(int plaetze) {
+        for (int i = 0; i < raumListe.size(); i++) {
+            Raum raum = raumListe.get(i);
+            if (!raum.istGebucht() && raum.getPlaetze() >= plaetze) {
+                return i + 1; // Raumnummerierung beginnt bei 1
+            }
         }
+        return -1;
     }
-    
+
     public int anzahlFrei() {
-        int freiePlaetze = 0;
-        if (this.raum.equals("Dreamroom")) {
-            freiePlaetze = 50 - this.plaetze;
-        } else if (this.raum.equals("Prestigeroom")) {
-            freiePlaetze = 150 - this.plaetze;
-        } else if (this.raum.equals("Bigroom")) {
-            freiePlaetze = 250 - this.plaetze;
+        int frei = 0;
+        for (Raum raum : raumListe) {
+            if (!raum.istGebucht()) {
+                frei++;
+            }
         }
-        return freiePlaetze;
+        return frei;
     }
 }
-
 
 
 
