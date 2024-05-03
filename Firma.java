@@ -20,7 +20,7 @@ public class Firma {
         for (int i = 0; i < raumListe.size(); i++) {
             Raum raum = raumListe.get(i);
             if (!raum.istGebucht() && raum.getPlaetze() >= plaetze) {
-                return i + 1; // Raumnummerierung beginnt bei 1
+                return i + 1; 
             }
         }
         return -1;
